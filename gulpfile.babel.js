@@ -1,9 +1,16 @@
 // generated on 2015-12-15 using generator-gulp-webapp 1.0.3
-import gulp from 'gulp';
-import gulpLoadPlugins from 'gulp-load-plugins';
-import browserSync from 'browser-sync';
-import del from 'del';
-import {stream as wiredep} from 'wiredep';
+//import gulp from 'gulp';
+//import gulpLoadPlugins from 'gulp-load-plugins';
+//import browserSync from 'browser-sync';
+//import del from 'del';
+//import {stream as wiredep} from 'wiredep';
+
+var gulp = require('gulp');
+var gulpLoadPlugins = require('gulp-load-plugins');
+var browserSync = require('browser-sync');
+var del = require('del');
+var wiredep = require('wiredep').stream;
+
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -33,11 +40,10 @@ const testLintOptions = {
 };
 
 gulp.task('lint', lint('app/scripts/**/*.js'));
-gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
+gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions))
 
 gulp.task('html', ['styles'], () => {
   const assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
-
   return gulp.src('app/*.html')
     .pipe(assets)
     .pipe($.if('*.js', $.uglify()))
@@ -159,7 +165,7 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'mustache', 'extras'], () => {
+gulp.task('build', ['html', 'images', 'fonts', 'mustache', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 

@@ -10,6 +10,81 @@
     }
   });
 
+  var Controller = Backbone.Router.extend({
+    routes: {
+      "": "start",
+      "!/": "start",
+      "Uno": "uno",
+      "Duo": "duo",
+      "Tres": "tres"
+    },
+
+    start: function () {
+      $(function () {
+        var mainView = new MainView({
+          el: $('#application')
+        });
+
+        mainView.getContext = function () {
+          return {
+            message: 'Hello World!'
+          }
+        };
+
+        mainView.render();
+      });
+    },
+
+    uno: function () {
+      $(function () {
+        var mainView = new MainView({
+          el: $('#application')
+        });
+
+        mainView.getContext = function () {
+          return {
+            message: 'Uno view'
+          }
+        };
+
+        mainView.render();
+      });
+    },
+
+    duo: function () {
+      $(function () {
+        var mainView = new MainView({
+          el: $('#application')
+        });
+
+        mainView.getContext = function () {
+          return {
+            message: 'Duo view'
+          }
+        };
+
+        mainView.render();
+      });
+    },
+
+    tres: function () {
+      $(function () {
+        var mainView = new MainView({
+          el: $('#application')
+        });
+
+        mainView.getContext = function () {
+          return {
+            message: 'Tres view'
+          }
+        };
+
+        mainView.render();
+      });
+    }
+  });
+
+
   var MainView = TemplateView.extend({
     template: 'main',
     render: function () {
@@ -21,7 +96,6 @@
     }
   });
 
-
   var ProjectListView = TemplateView.extend({
     template: 'project-list',
     getContext: function () {
@@ -31,10 +105,7 @@
     }
   });
 
-  $(function () {
-    var mainView = new MainView({
-      el: $('#application')
-    });
-    mainView.render();
-  });
+  var controller = new Controller();
+  Backbone.history.start();
+
 })();
