@@ -4,6 +4,9 @@ var browserSync = require('browser-sync');
 var del = require('del');
 var wiredep = require('wiredep').stream;
 
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
@@ -25,6 +28,7 @@ function lint(files, options) {
       .pipe($.if(!browserSync.active, $.eslint.failAfterError()));
   };
 }
+
 const testLintOptions = {
   env: {
     mocha: true
@@ -32,9 +36,17 @@ const testLintOptions = {
 };
 
 gulp.task('lint', lint('app/scripts/**/*.js'));
-gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions))
+gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
 
-gulp.task('html', ['styles'], () => {
+gulp.task('browserify', function() {
+  return browserify('app/scripts/app.js')
+    .bundle()
+    .pipe(source('scripts/app.js'))
+    .pipe(gulp.dest('.tmp'))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('html', ['styles', 'browserify'], () => {
   const assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
   return gulp.src('app/*.html')
     .pipe(assets)
@@ -94,7 +106,7 @@ gulp.task('mustache', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['styles', 'fonts', 'mustache'], () => {
+gulp.task('serve', ['browserify', 'styles', 'fonts', 'mustache'], () => {
   browserSync({
     notify: false,
     port: 9000,
@@ -114,6 +126,7 @@ gulp.task('serve', ['styles', 'fonts', 'mustache'], () => {
     '.tmp/fonts/**/*'
   ]).on('change', reload);
 
+  gulp.watch('app/scripts/**/*.js', ['browserify']);
   gulp.watch('app/styles/**/*.css', ['styles']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('app/templates/**/*.mustache', ['mustache']);
