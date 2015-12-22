@@ -1,34 +1,13 @@
-(function () {
-  'use strict';
+'use strict';
 
-  var MainView = require('./View').MainView;
-  var Router = require('./router');
+var MainView = require('./views/MainView');
+var TrackerRouter = require('./routes/router');
 
-  var controller = new Router();
+var main = new MainView();
+var router = new TrackerRouter({
+  mainPage: main
+});
 
-  var mainView = new MainView({
-    el: $('#application')
-  });
+Backbone.history.start();
 
-  controller.on('route:start', function () {
-    mainView.curentPage = 'Main view';
-    mainView.render();
-  });
 
-  controller.on('route:uno', function () {
-    mainView.curentPage = "Uno view";
-    mainView.render();
-  });
-
-  controller.on('route:duo', function () {
-    mainView.curentPage = "Duo view";
-    mainView.render();
-  });
-
-  controller.on('route:tres', function () {
-    mainView.curentPage = "Tres view";
-    mainView.render();
-  });
-
-  Backbone.history.start();
-})();
