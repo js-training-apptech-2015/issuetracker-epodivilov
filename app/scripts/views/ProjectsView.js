@@ -2,16 +2,31 @@ var TemplateView = require('./TemplateView');
 var ProjectView = require('./ProjectView');
 
 var ProjectsView = TemplateView.extend({
-  render: function () {
-    var element = $(this.el);
-    this.collection.forEach(function (item) {
-      var itemView = new ProjectView({
-        el: element,
-        model: item
-      });
-      element.append(itemView.render());
+  template: 'projects',
+  initialize: function () {
+    var that = this;
+    TemplateView.prototype.initialize.call(that);
+    that.collection.fetch({
+      success: function () {
+        that.render();
+      },
+      error: function () {
+        that.$el.html('<div class="alert alert-danger" role="alert">Error: Server is not responding.</div>');
+      }
     });
-    return this;
+  },
+  render: function () {
+    var that = this;
+    var template = templates[this.template];
+    this.collection.forEach(function (item) {
+      that.$el.append(template.render(that.getContext(item)));
+    });
+  },
+  getContext: function (item) {
+    return {
+      id: item.get('id'),
+      name: item.get('name')
+    }
   }
 });
 

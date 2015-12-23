@@ -3,12 +3,25 @@ var IssueView = require('./IssueView');
 
 var IssuesView = TemplateView.extend({
   template: 'issues',
-  render: function () {
-    var element = $(this.el);
-    var template = templates[this.template];
+  initialize: function () {
     var that = this;
-    this.collection.forEach(function (item) {
-      element.append(template.render(that.getContext(item)));
+    TemplateView.prototype.initialize.call(that);
+    that.collection.fetch({
+      success: function () {
+        that.render();
+      },
+      error: function () {
+        that.$el.html('<div class="alert alert-danger" role="alert">Error: Server is not responding.</div>');
+      }
+    });
+  },
+  render: function () {
+    var that = this;
+    var template = templates[that.template];
+    that.$el.append('<div><ol class="breadcrumb"><li><a href="/">Home</a></li>' +
+      '<li class="active">' + that.collection.projectID + '</li></ol></div>');
+    that.collection.forEach(function (item) {
+      that.$el.append(template.render(that.getContext(item)));
     });
   },
   getContext: function (item) {
@@ -18,9 +31,6 @@ var IssuesView = TemplateView.extend({
       description: item.get('description'),
       main: Backbone.history.location.hash
     }
-  },
-  renderIssue: function (id) {
-
   }
 });
 
