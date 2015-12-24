@@ -1,20 +1,7 @@
-var TemplateView = require('./TemplateView');
-var ProjectView = require('./ProjectView');
+var TemplateCollectionView = require('./TemplateCollectionView');
 
-var ProjectsView = TemplateView.extend({
+var ProjectsView = TemplateCollectionView.extend({
   template: 'projects',
-  initialize: function () {
-    var that = this;
-    TemplateView.prototype.initialize.call(that);
-    that.collection.fetch({
-      success: function () {
-        that.render();
-      },
-      error: function () {
-        that.$el.html('<div class="alert alert-danger" role="alert">Error: Server is not responding.</div>');
-      }
-    });
-  },
   render: function () {
     var that = this;
     var template = templates[this.template];

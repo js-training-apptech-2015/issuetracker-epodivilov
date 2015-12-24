@@ -1,19 +1,13 @@
 var TemplateModelView = require('./TemplateModelView');
 
-var ProjectView = TemplateModelView.extend({
+var AddProjectView = TemplateModelView.extend({
   el: 'body',
-  template: 'project',
-  getContext: function () {
-    return {
-      title: this.model.get('name')
-    }
-  },
-  render: function (model) {
+  template: 'addProject',
+  render: function () {
     this.delegateEvents({
       "click .js-btn-cancel": "backNotSave",
       "click .js-btn-submit": "backAndSave"
     });
-    this.model = model || this.model;
     var template = templates[this.template];
     this.modal = $(template.render(this.getContext()));
     this.modal.modal('show');
@@ -31,4 +25,4 @@ var ProjectView = TemplateModelView.extend({
   }
 });
 
-module.exports = ProjectView;
+module.exports = AddProjectView;
