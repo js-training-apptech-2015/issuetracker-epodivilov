@@ -1,4 +1,4 @@
-var Issue = require('./../models/issue');
+var Issue = require('./../models/Issue');
 
 var CollectionIssue = Backbone.Collection.extend({
   model: Issue,

@@ -12,13 +12,12 @@ var TemplateCollectionView = TemplateView.extend({
           context.render();
         },
         error: function () {
-          context.$el.html('<div class="alert alert-danger" role="alert">Error: Server is not responding.</div>');
+          context.$el.html('<div class="alert alert-info" role="alert">The current project has not yet created issues. <br> Create a issue by clicking the '+' at the top of the page</div>');
         }
       })
     } else {
       context.render();
     }
-
   },
   showProgress: function () {
     this.$el.html('<img src="/ajax-loader.gif" id="loading-indicator" class="center-block"/>');

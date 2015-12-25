@@ -1,4 +1,4 @@
-var Project = require('./../models/project');
+var Project = require('./../models/Project');
 
 var CollectionProject = Backbone.Collection.extend({
   model: Project,

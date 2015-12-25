@@ -4,26 +4,28 @@ var IssueView = require('./IssueView');
 var ProjectsView = require('./ProjectsView');
 var ProjectView = require('./ProjectView');
 var AddProjectView = require('./AddProjectView');
+var AddIssueView = require('./AddIssueView');
 
 var CollectionIssue = require('../collections/CollectionIssue');
 var CollectionProject = require('../collections/CollectionProject');
 
-var projects = new CollectionProject();
-
 var MainView = TemplateView.extend({
   el: $('#application'),
   template: 'main',
+  initialize: function() {
+    this.projects = new CollectionProject();
+  },
   listOfProjects: function () {
     TemplateView.prototype.render.call(this);
     new ProjectsView({
       el: $('.js-body'),
-      collection: projects
+      collection: this.projects
     });
   },
   listOfIssues: function (project) {
     TemplateView.prototype.render.call(this);
 
-    var selectedProject = projects.get(project);
+    var selectedProject = this.projects.get(project);
     if(!selectedProject.get('issues')) {
       selectedProject.set({
         issues: new CollectionIssue()
@@ -40,7 +42,7 @@ var MainView = TemplateView.extend({
     });
   },
   singleIssue: function (project, issue) {
-    var selectedIssue = projects.get(project).get('issues').get(issue);
+    var selectedIssue = this.projects.get(project).get('issues').get(issue);
 
     if (this.issueView) {
       this.issueView.render(selectedIssue);
@@ -51,7 +53,7 @@ var MainView = TemplateView.extend({
     }
   },
   singleProject: function (project) {
-    var selectedProject = projects.get(project);
+    var selectedProject = this.projects.get(project);
 
     if (this.projectView) {
       this.projectView.render(selectedProject);
@@ -62,10 +64,24 @@ var MainView = TemplateView.extend({
     }
   },
   addProject: function () {
+    var main = this;
     if (this.addProjectView) {
       this.addProjectView.render();
     } else {
-      this.addProjectView = new AddProjectView();
+      this.addProjectView = new AddProjectView({
+        mainPage: main
+      });
+    }
+  },
+  addIssue: function (project) {
+    var main = this;
+    if (this.addIssueView) {
+      this.addIssueView.render(project);
+    } else {
+      this.addIssueView = new AddIssueView({
+        mainPage: main,
+        currentProject: project
+      });
     }
   }
 });

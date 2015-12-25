@@ -1,13 +1,15 @@
 var TemplateModelView = require('./TemplateModelView');
 
-var AddProjectView = TemplateModelView.extend({
+var AddIssueView = TemplateModelView.extend({
   el: 'body',
-  template: 'addProject',
+  template: 'addIssue',
   initialize: function(options) {
     this.mainPage = options.mainPage;
+    this.currentProject = options.currentProject;
     TemplateModelView.prototype.initialize.call(this);
   },
-  render: function () {
+  render: function (currentProject) {
+    this.currentProject = currentProject || this.currentProject;
     this.delegateEvents({
       "click .js-btn-cancel": "backNotSave",
       "click .js-btn-submit": "backAndSave"
@@ -22,18 +24,22 @@ var AddProjectView = TemplateModelView.extend({
     this.undelegateEvents();
   },
   backAndSave: function() {
-
     var newName = $('#titleText').val();
-    var newProject = {
-      name: newName,
-      id: newName.replace(/\s+/g, '')
+    var newDescription = $('#descriptionText').val();
+
+    var newIssue = {
+      id: newName.replace(/\s+/g, ''),
+      title: newName,
+      description: newDescription,
+      status: "new"
     };
-    this.mainPage.projects.add(newProject);
-    this.mainPage.listOfProjects();
+
+    this.mainPage.projects.get(this.currentProject).get('issues').add(newIssue);
+    this.mainPage.listOfIssues(this.currentProject);
 
     this.modal.modal('hide').empty();
     this.undelegateEvents();
   }
 });
 
-module.exports = AddProjectView;
+module.exports = AddIssueView;
