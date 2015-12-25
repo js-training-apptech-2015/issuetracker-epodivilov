@@ -22,13 +22,21 @@ var AddProjectView = TemplateModelView.extend({
     this.undelegateEvents();
   },
   backAndSave: function() {
-
     var newName = $('#titleText').val();
     var newProject = {
       name: newName,
       id: newName.replace(/\s+/g, '')
     };
-    this.mainPage.projects.create(newProject);
+
+    this.mainPage.projects.create(newProject, {
+      wait: false,
+      success: function (model, response) {
+        model.trigger('create', model);
+      },
+      error: function (model, response) {
+      }
+    });
+
     this.mainPage.listOfProjects();
 
     this.modal.modal('hide').empty();

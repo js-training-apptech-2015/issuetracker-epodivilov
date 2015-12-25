@@ -73,6 +73,11 @@ var MainView = TemplateView.extend({
       });
     }
   },
+  removeProject: function (project) {
+    var removedProject = this.projects.get(project);
+    //this.projects.remove(removedProject);
+    removedProject.destroy();
+  },
   addIssue: function (project) {
     var main = this;
     if (this.addIssueView) {

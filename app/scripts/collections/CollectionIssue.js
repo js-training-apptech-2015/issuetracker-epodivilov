@@ -7,14 +7,14 @@ var CollectionIssue = Backbone.Collection.extend({
     return 'http://private-1e135-podivilovevgeniyapiaryio.apiary-mock.com/' + this.projectID;
   },
   initialize: function () {
-    this.listenTo(this, 'create', this.addProject);
-    this.listenTo(this, 'remove', this.removeProject);
+    this.listenTo(this, 'create', this.newIssue);
+    this.listenTo(this, 'remove', this.removeIssue);
   },
-  addProject: function (newProject) {
-    console.log('Add ' + newProject.get('name'));
+  newIssue: function (newIssue) {
+    console.log('Add ' + newIssue.get('title'));
   },
-  removeProject: function (removedProject) {
-    console.log('Remove ' + removedProject.get('name'));
+  removeIssue: function (removedIssue) {
+    console.log('Remove ' + removedIssue.get('title'));
   }
 });
 

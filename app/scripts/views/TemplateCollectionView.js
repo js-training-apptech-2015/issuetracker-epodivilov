@@ -15,7 +15,7 @@ var TemplateCollectionView = TemplateView.extend({
         error: function () {
           context.$el.html('<div class="alert alert-info" role="alert">The current project has not yet created issues. <br> Create a issue by clicking the '+' at the top of the page</div>');
         }
-      })
+      },{add: true})
     } else {
       context.render();
     }
