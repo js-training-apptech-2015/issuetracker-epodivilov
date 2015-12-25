@@ -28,7 +28,7 @@ var AddProjectView = TemplateModelView.extend({
       name: newName,
       id: newName.replace(/\s+/g, '')
     };
-    this.mainPage.projects.add(newProject);
+    this.mainPage.projects.create(newProject);
     this.mainPage.listOfProjects();
 
     this.modal.modal('hide').empty();

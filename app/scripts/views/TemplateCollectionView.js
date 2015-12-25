@@ -6,6 +6,7 @@ var TemplateCollectionView = TemplateView.extend({
 
     this.listenTo(context.collection, 'request', this.showProgress);
     this.listenTo(context.collection, 'sync', this.hideProgress);
+
     if(context.collection.length == 0) {
       context.collection.fetch({
         success: function () {

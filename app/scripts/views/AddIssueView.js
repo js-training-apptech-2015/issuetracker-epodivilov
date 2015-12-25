@@ -34,7 +34,7 @@ var AddIssueView = TemplateModelView.extend({
       status: "new"
     };
 
-    this.mainPage.projects.get(this.currentProject).get('issues').add(newIssue);
+    this.mainPage.projects.get(this.currentProject).get('issues').create(newIssue);
     this.mainPage.listOfIssues(this.currentProject);
 
     this.modal.modal('hide').empty();
