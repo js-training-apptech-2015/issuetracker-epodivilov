@@ -26,12 +26,13 @@ var AddIssueView = TemplateModelView.extend({
   backAndSave: function() {
     var newName = $('#titleText').val();
     var newDescription = $('#descriptionText').val();
+    var newStatus = $('#status').val();
 
     var newIssue = {
       id: newName.replace(/\s+/g, ''),
       title: newName,
       description: newDescription,
-      status: "new"
+      status: newStatus
     };
 
     this.mainPage.projects.get(this.currentProject).get('issues').create(newIssue, {

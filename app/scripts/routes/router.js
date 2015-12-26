@@ -29,6 +29,7 @@ var TrackerRouter = Backbone.Router.extend({
   },
   issue: function (project, issue) {
     this.mainPage.singleIssue(project, issue);
+    window.history.back();
   },
   project: function (project) {
     this.mainPage.listOfIssues(project);

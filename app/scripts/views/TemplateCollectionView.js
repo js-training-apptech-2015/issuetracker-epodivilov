@@ -6,6 +6,7 @@ var TemplateCollectionView = TemplateView.extend({
 
     this.listenTo(context.collection, 'request', this.showProgress);
     this.listenTo(context.collection, 'sync', this.hideProgress);
+    this.listenTo(context.collection, 'change', this.reRender);
 
     if(context.collection.length == 0) {
       context.collection.fetch({
@@ -25,6 +26,10 @@ var TemplateCollectionView = TemplateView.extend({
   },
   hideProgress: function () {
     this.$el.find('img').remove();
+  },
+  reRender: function () {
+    this.$el.html('');
+    this.render();
   }
 });
 

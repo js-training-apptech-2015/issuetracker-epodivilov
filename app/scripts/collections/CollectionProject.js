@@ -4,8 +4,8 @@ var CollectionProject = Backbone.Collection.extend({
   model: Project,
   url: 'http://private-1e135-podivilovevgeniyapiaryio.apiary-mock.com/projects',
   initialize: function () {
-    this.listenTo(this, 'create', this.newProject);
-    this.listenTo(this, 'remove', this.removeProject);
+    //this.listenTo(this, 'create', this.newProject);
+    //this.listenTo(this, 'remove', this.removeProject);
   },
   newProject: function (newProject) {
     console.log('Add ' + newProject.get('name'));

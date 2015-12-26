@@ -34,6 +34,7 @@ var AddProjectView = TemplateModelView.extend({
         model.trigger('create', model);
       },
       error: function (model, response) {
+        model.trigger('create', model);
       }
     });
 

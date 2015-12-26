@@ -24,8 +24,20 @@ var ProjectView = TemplateModelView.extend({
     this.undelegateEvents();
   },
   backAndSave: function() {
-    console.log($('#titleText').val());
-    console.log('Save and close project');
+    var newName = $('#titleText').val();
+
+    this.model.save({
+      name: newName
+    },{
+      wait: false,
+      success: function (model, response) {
+        model.trigger('change', model);
+      },
+      error: function (model, response) {
+        model.trigger('change', model);
+      }
+    });
+
     this.modal.modal('hide').empty();
     this.undelegateEvents();
   }
