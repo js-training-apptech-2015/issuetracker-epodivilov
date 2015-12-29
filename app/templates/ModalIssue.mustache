@@ -1,0 +1,38 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{#id}}
+                <h4 class="modal-title">Edit issue</h4>
+            {{/id}}
+            {{^id}}
+                <h4 class="modal-title">New issue</h4>
+            {{/id}}
+        </div>
+        <div class="modal-body">
+            <fieldset class="form-group">
+                <label for="titleText">Title</label>
+                <input id="titleText" type="text" class="form-control" value="{{title}}">
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="descriptionText">Description</label>
+                <textarea id="descriptionText" class="form-control" rows="3">{{description}}</textarea>
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="status">Status</label>
+                <select id="status" class="form-control">
+                    <option value="new">New</option>
+                    <option value="assigned">Assigned</option>
+                    <option value="revision">In revision</option>
+                    <option value="resolved">Resolved</option>
+                    <option value="closed">Closed</option>
+                </select>
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger pull-left js-btn-remove">Remove</button>
+            <button type="button" class="btn btn-default js-btn-cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary js-btn-submit">Submit</button>
+        </div>
+    </div>
+</div>

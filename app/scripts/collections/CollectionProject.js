@@ -6,12 +6,16 @@ var CollectionProject = Backbone.Collection.extend({
   initialize: function () {
     //this.listenTo(this, 'create', this.newProject);
     //this.listenTo(this, 'remove', this.removeProject);
+    //this.listenTo(this, 'change', this.changeIssue);
   },
   newProject: function (newProject) {
     console.log('Add ' + newProject.get('name'));
   },
   removeProject: function (removedProject) {
     console.log('Remove ' + removedProject.get('name'));
+  },
+  changeIssue: function (changedIssue) {
+    console.log('Change ' + changedIssue.get('title'));
   }
 });
 

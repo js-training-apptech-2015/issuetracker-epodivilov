@@ -104,6 +104,23 @@ body {
   text-decoration: none;
 }
 
+.status-color-new {
+  background-color: #d9534f;
+}
+.status-color-assigned {
+  background-color: #337ab7;
+}
+.status-color-revision {
+  background-color: #5bc0de;
+}
+.status-color-resolved {
+  background-color: #5cb85c;
+}
+.status-color-closed {
+  background-color: #777;
+}
+
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
@@ -121,10 +138,5 @@ body {
   /* Space out the masthead */
   .header {
     margin-bottom: 30px;
-  }
-
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
   }
 }

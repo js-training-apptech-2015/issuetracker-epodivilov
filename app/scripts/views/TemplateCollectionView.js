@@ -2,34 +2,40 @@ var TemplateView = require('./TemplateView');
 
 var TemplateCollectionView = TemplateView.extend({
   initialize: function() {
+    this.listenTo(this.collection, 'request', this.showProgress);
+    this.listenTo(this.collection, 'sync', this.hideProgress);
+    this.listenTo(this.collection, 'add', this.addItem);
+
     var context = this;
-
-    this.listenTo(context.collection, 'request', this.showProgress);
-    this.listenTo(context.collection, 'sync', this.hideProgress);
-    this.listenTo(context.collection, 'change', this.reRender);
-
-    if(context.collection.length == 0) {
-      context.collection.fetch({
+    if(this.collection.length == 0) {
+      this.collection.fetch({
+        silent: true,
         success: function () {
-          context.render();
+          context.renderAll();
         },
         error: function () {
           context.$el.html('<div class="alert alert-info" role="alert">The current project has not yet created issues. <br> Create a issue by clicking the '+' at the top of the page</div>');
         }
-      },{add: true})
-    } else {
-      context.render();
+      })
     }
   },
-  showProgress: function () {
-    this.$el.html('<img src="/ajax-loader.gif" id="loading-indicator" class="center-block"/>');
+  showProgress: function (context) {
+    if (context instanceof Backbone.Collection) {
+      this.$el.html('<img src="/ajax-loader.gif" id="loading-indicator" class="center-block"/>');
+    }
   },
-  hideProgress: function () {
+  hideProgress: function (context) {
     this.$el.find('img').remove();
   },
-  reRender: function () {
-    this.$el.html('');
-    this.render();
+  renderAll: function () {
+    var that = this;
+    this.collection.forEach(function (item) {
+      that.renderOnce(item);
+    });
+  },
+  addItem: function (context) {
+    this.$el.find('.alert').remove();
+    this.renderOnce(context);
   }
 });
 

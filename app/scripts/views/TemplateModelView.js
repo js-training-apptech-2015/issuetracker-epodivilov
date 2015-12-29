@@ -1,16 +1,15 @@
 var TemplateView = require('./TemplateView');
 
 var TemplateModelView = TemplateView.extend({
-  initialize: function() {
-    this.render();
-  },
-  showProgress: function () {
-    this.$el.html('<img src="/ajax-loader.gif" id="loading-indicator" class="center-block"/>');
-  },
-  hideProgress: function () {
-    this.$el.find('img').remove();
+  initialize: function () {
+    if(this.model.get('id') == undefined) {
+      this.editModel();
+    } else {
+      this.render();
+    }
+    this.listenTo(this.model, 'change', this.render);
+    this.listenTo(this.model, 'destroy', this.remove);
   }
 });
 
 module.exports = TemplateModelView;
-

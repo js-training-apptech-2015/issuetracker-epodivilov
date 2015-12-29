@@ -1,0 +1,24 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{#id}}
+                <h4 class="modal-title">Edit project</h4>
+            {{/id}}
+            {{^id}}
+                <h4 class="modal-title">New project</h4>
+            {{/id}}
+        </div>
+        <div class="modal-body">
+            <fieldset class="form-group">
+                <label for="projectName">Name</label>
+                <input id="projectName" type="text" class="form-control" value="{{name}}">
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger pull-left js-btn-remove">Remove</button>
+            <button type="button" class="btn btn-default js-btn-cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary js-btn-submit">Submit</button>
+        </div>
+    </div>
+</div>
