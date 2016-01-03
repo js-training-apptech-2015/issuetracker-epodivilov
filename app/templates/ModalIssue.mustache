@@ -2,21 +2,31 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {{#id}}
+            {{#_id}}
                 <h4 class="modal-title">Edit issue</h4>
-            {{/id}}
-            {{^id}}
+            {{/_id}}
+            {{^_id}}
                 <h4 class="modal-title">New issue</h4>
-            {{/id}}
+            {{/_id}}
         </div>
         <div class="modal-body">
             <fieldset class="form-group">
                 <label for="titleText">Title</label>
-                <input id="titleText" type="text" class="form-control" value="{{title}}">
+                {{#_id}}
+                    <input id="titleText" type="text" class="form-control" value="{{title}}">
+                {{/_id}}
+                {{^_id}}
+                    <input id="titleText" type="text" class="form-control" value="New issue">
+                {{/_id}}
             </fieldset>
             <fieldset class="form-group">
                 <label for="descriptionText">Description</label>
-                <textarea id="descriptionText" class="form-control" rows="3">{{description}}</textarea>
+                {{#_id}}
+                    <textarea id="descriptionText" class="form-control" rows="3">{{description}}</textarea>
+                {{/_id}}
+                {{^_id}}
+                    <textarea id="descriptionText" class="form-control" rows="3">Description for new issue</textarea>
+                {{/_id}}
             </fieldset>
             <fieldset class="form-group">
                 <label for="status">Status</label>

@@ -2,7 +2,7 @@ var Project = require('./../models/Project');
 
 var CollectionProject = Backbone.Collection.extend({
   model: Project,
-  url: 'http://private-1e135-podivilovevgeniyapiaryio.apiary-mock.com/projects',
+  url: 'https://issue-tracker-server.herokuapp.com/projects',
   initialize: function () {
     //this.listenTo(this, 'create', this.newProject);
     //this.listenTo(this, 'remove', this.removeProject);

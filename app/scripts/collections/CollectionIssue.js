@@ -4,7 +4,7 @@ var CollectionIssue = Backbone.Collection.extend({
   model: Issue,
   projectID: null,
   url: function () {
-    return 'http://private-1e135-podivilovevgeniyapiaryio.apiary-mock.com/' + this.projectID;
+    return 'https://issue-tracker-server.herokuapp.com/projects/' + this.projectID;
   },
   initialize: function () {
     //this.listenTo(this, 'create', this.newIssue);

@@ -11,8 +11,8 @@ var ModalProjectView = TemplateView.extend({
     this.render();
   },
   cancelModal: function () {
-    if(this.model.get('id') == undefined) {
-      this.model.destroy({wait: false});
+    if(this.model.isNew()) {
+      this.model.destroy();
     }
     this.$el.modal('hide').empty();
     this.undelegateEvents();
@@ -21,16 +21,21 @@ var ModalProjectView = TemplateView.extend({
     var newProject = {
       name: $('#projectName').val()
     };
-    if(this.model.get('id') == undefined) {
-      newProject.id = newProject.name.replace(/\s+/g, '');
-    }
-    this.model.save(newProject,{ wait: false });
+    this.model.save(newProject,{
+      wait: true,
+      success: function (model, response) {
+        model.save(response);
+      },
+      error: function (model, response) {
+        console.log(response);
+      }
+    });
 
     this.$el.modal('hide').empty();
     this.undelegateEvents();
   },
   removeModal: function () {
-    this.model.destroy({wait: false});
+    this.model.destroy({wait: true});
     this.$el.modal('hide').empty();
     this.undelegateEvents();
   }

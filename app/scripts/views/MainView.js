@@ -6,6 +6,8 @@ var ListOfIssuesView = require('./ListOfIssuesView');
 var CollectionIssue = require('../collections/CollectionIssue');
 var CollectionProject = require('../collections/CollectionProject');
 
+
+
 var MainView = TemplateView.extend({
   el: $('#application'),
   template: 'main',
@@ -53,15 +55,9 @@ var MainView = TemplateView.extend({
   addItem: function () {
     var url = Backbone.history.fragment;
     if(url.length === 0) {
-      this.projects.add({
-        name: 'New project'
-      });
+      this.projects.add({});
     } else {
-      this.projects.get(url).get('issues').add({
-        title: 'New issue',
-        description: 'Description for new issue',
-        status: 'new'
-      })
+      this.projects.get(url).get('issues').add({})
     }
   }
 });

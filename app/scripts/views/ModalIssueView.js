@@ -12,12 +12,12 @@ var ModalIssueView = TemplateView.extend({
   },
   render: function () {
     TemplateView.prototype.render.call(this);
-    this.$el.find('#status').val(this.model.get('status'));
+    this.$el.find('#status').val(this.model.get('status')||'new');
     return this;
   },
   cancelModal: function () {
-    if(this.model.get('id') == undefined) {
-      this.model.destroy({wait: false});
+    if(this.model.isNew()) {
+      this.model.destroy();
     }
     this.$el.modal('hide').empty();
     this.undelegateEvents();
@@ -28,16 +28,21 @@ var ModalIssueView = TemplateView.extend({
       description: $('#descriptionText').val(),
       status: $('#status').val()
     };
-    if(this.model.get('id') == undefined) {
-      newIssue.id = newIssue.title.replace(/\s+/g, '');
-    }
-    this.model.save(newIssue,{ wait: false });
+    this.model.save(newIssue, {
+      wait: true,
+      success: function (model, response) {
+        model.save(response);
+      },
+      error: function (model, response) {
+        console.log(response);
+      }
+    });
 
     this.$el.modal('hide').empty();
     this.undelegateEvents();
   },
   removeModal: function () {
-    this.model.destroy({wait: false});
+    this.model.destroy({wait: true});
     this.$el.modal('hide').empty();
     this.undelegateEvents();
   }

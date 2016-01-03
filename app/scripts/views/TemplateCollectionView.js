@@ -10,11 +10,11 @@ var TemplateCollectionView = TemplateView.extend({
     if(this.collection.length == 0) {
       this.collection.fetch({
         silent: true,
-        success: function () {
+        success: function (model, response) {
           context.renderAll();
         },
         error: function () {
-          context.$el.html('<div class="alert alert-info" role="alert">The current project has not yet created issues. <br> Create a issue by clicking the '+' at the top of the page</div>');
+          context.$el.html('<div class="alert alert-danger" role="alert">Server is not response</div>');
         }
       })
     }
@@ -32,6 +32,9 @@ var TemplateCollectionView = TemplateView.extend({
     this.collection.forEach(function (item) {
       that.renderOnce(item);
     });
+    if(this.collection.length == 0) {
+      this.$el.html('<div class="alert alert-info" role="alert">The current project has not yet created issues. <br> Create a issue by clicking the '+' at the top of the page</div>');
+    }
   },
   addItem: function (context) {
     this.$el.find('.alert').remove();
