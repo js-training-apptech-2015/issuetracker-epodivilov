@@ -7,7 +7,6 @@ var CollectionIssue = require('../collections/CollectionIssue');
 var CollectionProject = require('../collections/CollectionProject');
 
 
-
 var MainView = TemplateView.extend({
   el: $('#application'),
   template: 'main',
@@ -40,7 +39,6 @@ var MainView = TemplateView.extend({
       });
       selectedProject.get('issues').projectID = project;
     }
-
 
     if(selectedProject.listOfIssuesView) {
       selectedProject.listOfIssuesView.renderAll();

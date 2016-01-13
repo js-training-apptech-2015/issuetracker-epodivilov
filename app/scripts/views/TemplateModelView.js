@@ -2,7 +2,7 @@ var TemplateView = require('./TemplateView');
 
 var TemplateModelView = TemplateView.extend({
   initialize: function () {
-    if(this.model.get('projectID') == undefined) {
+    if(this.model.isNew()) {
       this.editModel();
     } else {
       this.render();
