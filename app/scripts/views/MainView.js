@@ -20,6 +20,8 @@ var MainView = TemplateView.extend({
   listOfProjects: function () {
     $('.js-body').html('');
 
+    $('.breadcrumb').children('.active').remove();
+
     if(this.listOfProjectsView) {
       this.listOfProjectsView.renderAll();
     } else {
@@ -33,6 +35,9 @@ var MainView = TemplateView.extend({
     $('.js-body').html('');
 
     var selectedProject = this.projects.get(project);
+
+    $('.project-root').after('<li class="active">' + selectedProject.get('name') + '</li>');
+
     if(!selectedProject.get('issues')) {
       selectedProject.set({
         issues: new CollectionIssue()
