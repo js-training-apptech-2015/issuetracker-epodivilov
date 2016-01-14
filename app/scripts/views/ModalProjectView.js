@@ -1,4 +1,5 @@
 var TemplateView = require('./TemplateView');
+var showDangerAlert = require('../utils/Alert').showDangerAlert;
 
 var ModalProjectView = TemplateView.extend({
   template: 'ModalProject',
@@ -27,7 +28,7 @@ var ModalProjectView = TemplateView.extend({
         model.save(response);
       },
       error: function (model, response) {
-        alert(response.responseText);
+        showDangerAlert(response.responseJSON);
       }
     });
 
