@@ -10,7 +10,7 @@ var TemplateCollectionView = TemplateView.extend({
     if(this.collection.length == 0) {
       this.collection.fetch({
         silent: true,
-        success: function (model, response) {
+        success: function () {
           context.renderAll();
         },
         error: function () {
@@ -24,7 +24,7 @@ var TemplateCollectionView = TemplateView.extend({
       this.$el.html('<img src="/ajax-loader.gif" id="loading-indicator" class="center-block"/>');
     }
   },
-  hideProgress: function (context) {
+  hideProgress: function () {
     this.$el.find('img').remove();
   },
   renderAll: function () {

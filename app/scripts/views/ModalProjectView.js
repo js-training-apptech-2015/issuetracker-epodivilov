@@ -27,7 +27,7 @@ var ModalProjectView = TemplateView.extend({
         model.save(response);
       },
       error: function (model, response) {
-        console.log(response);
+        alert(response.responseText);
       }
     });
 
