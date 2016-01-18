@@ -13,3 +13,7 @@ The application allows the following:
   For this SPA written server https://github.com/epodivilov/IssueTrackerServer/tree/master
   The server is placed on Heroku
   Database is placed to MongoLab
+  
+## Install
+  nmp install && bower install
+  gulp build && gulp serve
