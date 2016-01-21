@@ -8,6 +8,11 @@ The application allows the following:
 - view issues list for project
 - view, create, update, delete issue
 
+## Client
+  
+  Deploy result to GitHab Pages
+  http://epodivilov.github.io/issuetracker/
+
 ## Server
 
   For this SPA written server https://github.com/epodivilov/IssueTrackerServer/tree/master

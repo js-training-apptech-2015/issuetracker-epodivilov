@@ -43,7 +43,7 @@ gulp.task('browserify', function() {
     .bundle()
     .pipe(source('scripts/app.js'))
     .pipe(gulp.dest('.tmp'))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/issuetracker'));
 });
 
 gulp.task('html', ['styles', 'browserify'], () => {
@@ -55,7 +55,7 @@ gulp.task('html', ['styles', 'browserify'], () => {
     .pipe(assets.restore())
     .pipe($.useref())
     .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/issuetracker'));
 });
 
 gulp.task('images', () => {
@@ -71,7 +71,7 @@ gulp.task('images', () => {
         console.log(err);
         this.end();
       })))
-    .pipe(gulp.dest('dist/images'));
+    .pipe(gulp.dest('dist/issuetracker/images'));
 });
 
 gulp.task('fonts', () => {
@@ -79,7 +79,7 @@ gulp.task('fonts', () => {
       filter: '**/*.{eot,svg,ttf,woff,woff2}'
     }).concat('app/fonts/**/*'))
     .pipe(gulp.dest('.tmp/fonts'))
-    .pipe(gulp.dest('dist/fonts'));
+    .pipe(gulp.dest('dist/issuetracker/fonts'));
 });
 
 gulp.task('extras', () => {
@@ -88,7 +88,7 @@ gulp.task('extras', () => {
     '!app/*.html'
   ], {
     dot: true
-  }).pipe(gulp.dest('dist'));
+  }).pipe(gulp.dest('dist/issuetracker'));
 });
 
 gulp.task('mustache', () => {
@@ -101,10 +101,10 @@ gulp.task('mustache', () => {
     )
     .pipe($.concat('templates.js'))
     .pipe(gulp.dest('.tmp/templates'))
-    .pipe(gulp.dest('dist/templates'));
+    .pipe(gulp.dest('dist/issuetracker/templates'));
 });
 
-gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
+gulp.task('clean', del.bind(null, ['.tmp', 'dist/issuetracker/fonts', 'dist/issuetracker/scripts', 'dist/issuetracker/styles', 'dist/issuetracker/templates']));
 
 gulp.task('serve', ['browserify', 'styles', 'fonts', 'mustache'], () => {
   browserSync({
@@ -138,7 +138,7 @@ gulp.task('serve:dist', () => {
     notify: false,
     port: 9000,
     server: {
-      baseDir: ['dist']
+      baseDir: ['dist/issuetracker']
     }
   });
 });
@@ -170,7 +170,7 @@ gulp.task('wiredep', () => {
 });
 
 gulp.task('build', ['html', 'images', 'fonts', 'mustache', 'extras'], () => {
-  return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
+  return gulp.src('dist/issuetracker/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
 gulp.task('default', ['clean'], () => {
