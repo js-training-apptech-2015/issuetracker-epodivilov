@@ -21,7 +21,7 @@ var TemplateCollectionView = TemplateView.extend({
   },
   showProgress: function (context) {
     if (context instanceof Backbone.Collection) {
-      this.$el.html('<img src="/ajax-loader.gif" id="loading-indicator" class="center-block"/>');
+      this.$el.html('<img src="ajax-loader.gif" id="loading-indicator" class="center-block"/>');
     }
   },
   hideProgress: function () {
